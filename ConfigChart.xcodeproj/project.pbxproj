@@ -15,6 +15,8 @@
 		B48E28A11E7BC528000DF8AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48E289F1E7BC528000DF8AF /* LaunchScreen.storyboard */; };
 		B48E28AC1E7BC528000DF8AF /* ConfigChartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E28AB1E7BC528000DF8AF /* ConfigChartTests.m */; };
 		B48E28B71E7BC528000DF8AF /* ConfigChartUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E28B61E7BC528000DF8AF /* ConfigChartUITests.m */; };
+		B4908D3D1E80DC09001AB3CE /* RinghtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4908D3C1E80DC09001AB3CE /* RinghtTableViewCell.m */; };
+		B4908D401E80DD2B001AB3CE /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B4908D3F1E80DD2B001AB3CE /* UIView+Frame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		B48E28B21E7BC528000DF8AF /* ConfigChartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConfigChartUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B48E28B61E7BC528000DF8AF /* ConfigChartUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigChartUITests.m; sourceTree = "<group>"; };
 		B48E28B81E7BC528000DF8AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4908D3B1E80DC09001AB3CE /* RinghtTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RinghtTableViewCell.h; sourceTree = "<group>"; };
+		B4908D3C1E80DC09001AB3CE /* RinghtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RinghtTableViewCell.m; sourceTree = "<group>"; };
+		B4908D3E1E80DD2B001AB3CE /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		B4908D3F1E80DD2B001AB3CE /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +109,12 @@
 			children = (
 				B48E28941E7BC528000DF8AF /* AppDelegate.h */,
 				B48E28951E7BC528000DF8AF /* AppDelegate.m */,
+				B4908D3E1E80DD2B001AB3CE /* UIView+Frame.h */,
+				B4908D3F1E80DD2B001AB3CE /* UIView+Frame.m */,
 				B48E28971E7BC528000DF8AF /* ViewController.h */,
 				B48E28981E7BC528000DF8AF /* ViewController.m */,
+				B4908D3B1E80DC09001AB3CE /* RinghtTableViewCell.h */,
+				B4908D3C1E80DC09001AB3CE /* RinghtTableViewCell.m */,
 				B48E289A1E7BC528000DF8AF /* Main.storyboard */,
 				B48E289D1E7BC528000DF8AF /* Assets.xcassets */,
 				B48E289F1E7BC528000DF8AF /* LaunchScreen.storyboard */,
@@ -279,6 +289,8 @@
 				B48E28991E7BC528000DF8AF /* ViewController.m in Sources */,
 				B48E28961E7BC528000DF8AF /* AppDelegate.m in Sources */,
 				B48E28931E7BC528000DF8AF /* main.m in Sources */,
+				B4908D401E80DD2B001AB3CE /* UIView+Frame.m in Sources */,
+				B4908D3D1E80DC09001AB3CE /* RinghtTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
