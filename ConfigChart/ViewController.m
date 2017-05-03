@@ -8,13 +8,26 @@
 
 #import "ViewController.h"
 #import "UIView+Frame.h"
+#import "ChartCell.h"
+#import "UIView+Frame.h"
+#import "ChartTitleView.h"
 
-@interface ViewController () <UITableViewDataSource,UIScrollViewDelegate,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+/***  当前屏幕宽度 */
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+/***  当前屏幕高度 */
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define kPropertyListViewHeight 50
+#define kTitleViewWidth 80
 
+@interface ViewController () <UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@property (strong, nonatomic)  ChartTitleView *titleView;
+@property (strong, nonatomic)  ChartTitleView *propertyListView;
+@property (strong, nonatomic)  UIScrollView *contentScrollView;
+@property (strong, nonatomic)  NSArray *dataArray;
+@property (strong, nonatomic)  UICollectionView *collectionView;
+@property (nonatomic,strong) NSArray *propertyWidths;
+@property (nonatomic,strong) NSArray *titleHeights;
 @end
 
 @implementation ViewController
@@ -22,9 +35,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.tableView.layer.borderWidth = 0.5;
-    self.tableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//    self.rightTableView.allowsSelection = NO;
+    [self.view addSubview:self.contentScrollView];
+    [self.contentScrollView addSubview:self.collectionView];
+    [self.collectionView addSubview:self.propertyListView];
+    [self.collectionView addSubview:self.titleView];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.contentScrollView.contentSize = self.collectionView.bounds.size;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -32,101 +48,168 @@
     return YES;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return 80;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSString * const ID = @"Identifier";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle: UITableViewCellStyleDefault reuseIdentifier:ID];
-        cell.layoutMargins = UIEdgeInsetsZero;
-        cell.separatorInset = UIEdgeInsetsZero;
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"型号_%02ld",indexPath.row];
-    return cell;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 35)];
-    label.text = @"型号";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.backgroundColor = [UIColor orangeColor];
-    return label;
-    
-//    UIView *sectionHeader = [[UIView alloc] init];
-//    sectionHeader.width = self.collectionView.width;
-//    CGFloat btnW = sectionHeader.width / 9.0;
-//    for (int i = 0; i < 9; i ++) {
-//        UIButton *btn = [[UIButton alloc] init];
-//        btn.backgroundColor = [UIColor orangeColor];
-//        btn.layer.borderWidth = 0.5;
-//        btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//        [sectionHeader addSubview:btn];
-//        NSInteger randText = rand() % 1000;
-//        [btn setTitle:[NSString stringWithFormat:@"参数_%ld",randText] forState:UIControlStateNormal];
-//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        btn.frame = CGRectMake(i * btnW, 0, btnW, 35);
-//    }
-//
-//    return sectionHeader;
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    return 35;
-}
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 80;
+    return 100;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 8;
+    return 10;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionReuseIdentifier" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:0.4];
-
+    ChartCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ChartCell" forIndexPath:indexPath];
+    cell.text = [NSString stringWithFormat:@"data %ld--%ld",indexPath.section,indexPath.item];
     return cell;
 }
 
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//
-//    UICollectionReusableView *collectionReusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"collectionReusableView" forIndexPath:indexPath];
-//    return collectionReusableView;
-//}
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    CGFloat width = [self.propertyWidths[indexPath.item] floatValue];
+    CGFloat height = [self.titleHeights[indexPath.section] floatValue];
+    return CGSizeMake(width, height);
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    if (scrollView == self.tableView) {
+    if (scrollView == self.contentScrollView) {
         
-        CGFloat offsetY = self.tableView.contentOffset.y;
-        CGPoint offset = self.collectionView.contentOffset;
-        self.collectionView.contentOffset = CGPointMake(offset.x, offsetY);
-    }
-    if (scrollView == self.collectionView) {
+        if (self.contentScrollView.contentOffset.x > 0) {
+            self.titleView.left = self.contentScrollView.contentOffset.x;
+        }else {
+            self.titleView.left = 0;
+        }
         
-        CGFloat offsetY = self.collectionView.contentOffset.y;
-        CGPoint offset = self.tableView.contentOffset;
-        self.tableView.contentOffset = CGPointMake(offset.x, offsetY);
+    }else if(scrollView == self.collectionView) {
         
-    }
-    
-    if (scrollView.contentOffset.y < 0) {
-        self.stackView.top = - scrollView.contentOffset.y;
+        if (self.collectionView.contentOffset.y > 0) {
+            self.titleView.topTitleView.top = self.collectionView.contentOffset.y;
+        }else {
+            self.titleView.topTitleView.top = 0;
+        }
+        
+        if (self.collectionView.contentOffset.y > 0) {
+            self.propertyListView.top =  scrollView.contentOffset.y;
+        }else {
+            self.propertyListView.top = 0;
+        }
     }
 }
 
+
+- (UICollectionView *)collectionView {
+    
+    if  (!_collectionView) {
+        
+        UICollectionViewFlowLayout *selectChartLayout = [[UICollectionViewFlowLayout alloc] init];
+        selectChartLayout.minimumLineSpacing = 0;
+        selectChartLayout.minimumInteritemSpacing = 0;
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.propertyListView.width, SCREEN_HEIGHT) collectionViewLayout:selectChartLayout];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        [_collectionView registerClass:[ChartCell class] forCellWithReuseIdentifier:@"ChartCell"];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+    }
+    return _collectionView;
+}
+
+- (UIScrollView *)contentScrollView {
+    
+    if (!_contentScrollView) {
+        _contentScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        [_contentScrollView addSubview:self.collectionView];
+        _contentScrollView.delegate = self;
+    }
+    return _contentScrollView;
+}
+
+
+- (NSArray *)propertyWidths {
+    
+    if (!_propertyWidths) {
+        NSMutableArray *widthsArray = [NSMutableArray array];
+        for ( NSInteger i = 0; i < 10; i ++) {
+            if (i == 0) {
+                
+                [widthsArray addObject:@(kTitleViewWidth)];
+                continue;
+            }
+            [widthsArray addObject:@(100 + rand() % 50)];
+        }
+        _propertyWidths = [widthsArray copy];
+    }
+    return _propertyWidths;
+}
+
+
+- (NSArray *)titleHeights {
+
+    if (!_titleHeights) {
+        NSMutableArray *heightsArray = [NSMutableArray array];
+        for ( NSInteger i = 0; i < 100; i ++) {
+            if (i == 0) {
+                [heightsArray addObject:@(kPropertyListViewHeight)];
+                continue;
+            }
+            [heightsArray addObject:@(35 + rand() % 20)];
+        }
+        _titleHeights = [heightsArray copy];
+    }
+    return _titleHeights;
+}
+
+
+- (ChartTitleView *)titleView {
+    
+    if (!_titleView) {
+        
+        _titleView = [[ChartTitleView  alloc] initWithFrame:CGRectMake(0, 0, kTitleViewWidth, 0)];
+        NSMutableArray *tempArray = [NSMutableArray array];
+        
+        for ( NSInteger i = 0; i < 100; i ++) {
+            [tempArray addObject:[NSString stringWithFormat:@"title %02ld",i]];
+        }
+        [_titleView setTitles:tempArray andWidths:self.titleHeights andLayoutDirection:LayoutVertical];
+    }
+    return _titleView;
+}
+
+- (ChartTitleView *)propertyListView {
+    
+    if (!_propertyListView) {
+        
+        _propertyListView = [[ChartTitleView  alloc] initWithFrame:CGRectMake(0, 0, 0, kPropertyListViewHeight)];
+        NSMutableArray *tempArray = [NSMutableArray array];
+        for ( NSInteger i = 0; i < 10; i ++) {
+            [tempArray addObject:[NSString stringWithFormat:@"property %02ld",i]];
+        }
+        [_propertyListView setTitles:tempArray andWidths:self.propertyWidths andLayoutDirection:LayoutHorizontal];
+    }
+    return _propertyListView;
+}
+
+#pragma mark - 旋转
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (void)viewWillLayoutSubviews {
+    
+    [super viewWillLayoutSubviews];
+    self.contentScrollView.width = SCREEN_WIDTH;
+    self.contentScrollView.height = SCREEN_HEIGHT;
+    self.collectionView.height = self.contentScrollView.height;
+    //self.collectionView.width = self.propertyListView.width;
+    self.contentScrollView.contentSize = self.collectionView.size;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+}
 
 @end

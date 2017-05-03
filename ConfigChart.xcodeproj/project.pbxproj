@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B43BE0191EB97A7700FCC59C /* ChartTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BE0181EB97A7700FCC59C /* ChartTitleView.m */; };
+		B43BE01C1EB97A8800FCC59C /* ChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BE01B1EB97A8800FCC59C /* ChartCell.m */; };
 		B48E28931E7BC528000DF8AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E28921E7BC528000DF8AF /* main.m */; };
 		B48E28961E7BC528000DF8AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E28951E7BC528000DF8AF /* AppDelegate.m */; };
 		B48E28991E7BC528000DF8AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E28981E7BC528000DF8AF /* ViewController.m */; };
@@ -36,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B43BE0171EB97A7700FCC59C /* ChartTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTitleView.h; sourceTree = "<group>"; };
+		B43BE0181EB97A7700FCC59C /* ChartTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTitleView.m; sourceTree = "<group>"; };
+		B43BE01A1EB97A8800FCC59C /* ChartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartCell.h; sourceTree = "<group>"; };
+		B43BE01B1EB97A8800FCC59C /* ChartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartCell.m; sourceTree = "<group>"; };
 		B48E288E1E7BC528000DF8AF /* ConfigChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConfigChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B48E28921E7BC528000DF8AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B48E28941E7BC528000DF8AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,8 +110,10 @@
 		B48E28901E7BC528000DF8AF /* ConfigChart */ = {
 			isa = PBXGroup;
 			children = (
-				B48E28941E7BC528000DF8AF /* AppDelegate.h */,
-				B48E28951E7BC528000DF8AF /* AppDelegate.m */,
+				B43BE01A1EB97A8800FCC59C /* ChartCell.h */,
+				B43BE01B1EB97A8800FCC59C /* ChartCell.m */,
+				B43BE0171EB97A7700FCC59C /* ChartTitleView.h */,
+				B43BE0181EB97A7700FCC59C /* ChartTitleView.m */,
 				B4908D3E1E80DD2B001AB3CE /* UIView+Frame.h */,
 				B4908D3F1E80DD2B001AB3CE /* UIView+Frame.m */,
 				B48E28971E7BC528000DF8AF /* ViewController.h */,
@@ -122,6 +130,8 @@
 		B48E28911E7BC528000DF8AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B48E28941E7BC528000DF8AF /* AppDelegate.h */,
+				B48E28951E7BC528000DF8AF /* AppDelegate.m */,
 				B48E28921E7BC528000DF8AF /* main.m */,
 			);
 			name = "Supporting Files";
@@ -281,6 +291,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B43BE0191EB97A7700FCC59C /* ChartTitleView.m in Sources */,
+				B43BE01C1EB97A8800FCC59C /* ChartCell.m in Sources */,
 				B48E28991E7BC528000DF8AF /* ViewController.m in Sources */,
 				B48E28961E7BC528000DF8AF /* AppDelegate.m in Sources */,
 				B48E28931E7BC528000DF8AF /* main.m in Sources */,
@@ -379,7 +391,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -420,7 +432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -434,7 +446,7 @@
 				DEVELOPMENT_TEAM = W55448EFBF;
 				INFOPLIST_FILE = ConfigChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yeliang.ConfigChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yeliang.ConfigChart1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -446,7 +458,7 @@
 				DEVELOPMENT_TEAM = W55448EFBF;
 				INFOPLIST_FILE = ConfigChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yeliang.ConfigChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yeliang.ConfigChart1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
